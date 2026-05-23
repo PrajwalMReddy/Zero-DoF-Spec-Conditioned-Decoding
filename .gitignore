@@ -1,0 +1,16 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+
+# Dataset and generated artifacts
+datasets/
+
+# macOS
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
