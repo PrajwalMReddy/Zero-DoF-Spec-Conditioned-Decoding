@@ -1,0 +1,8 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# The implementation must only use arithmetic on the argument.
+# Do not import any modules.
+
+def synthesized_function(x):
+    """Return x doubled."""

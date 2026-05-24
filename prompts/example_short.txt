@@ -1,0 +1,5 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+def synthesized_function(x):
+    pass
