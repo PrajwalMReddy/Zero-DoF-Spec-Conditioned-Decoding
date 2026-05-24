@@ -22,6 +22,20 @@ def test_check_restricted_syntax_allows_safe_code():
     assert diagnostic == ''
 
 
+def test_check_restricted_syntax_allows_harmless_execution_word():
+    code = "def foo(x):\n    # execution should be safe\n    return x\n"
+    allowed, diagnostic = _check_restricted_syntax(code)
+    assert allowed
+    assert diagnostic == ''
+
+
+def test_check_restricted_syntax_blocks_imports():
+    code = "import os\n"
+    allowed, diagnostic = _check_restricted_syntax(code)
+    assert not allowed
+    assert 'Restricted import detected' in diagnostic
+
+
 def double_predicate(ns, sample):
     return ns['synthesized_function'](sample['value']) == sample['value'] * 2
 

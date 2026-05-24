@@ -1,46 +1,79 @@
 # Zero-DoF Spec-Conditioned Decoding Engine
 
-This repository implements a prototype of the Zero-DoF Spec-Conditioned Decoding Engine (Zero-SCD).
+This repository contains a prototype implementation of a spec-conditioned synthesis engine for code generation.
+The core idea is to combine streaming generation, semantic checkpoints, and an executable oracle to commit only verified code fragments.
 
-## Files
+## Repository structure
 
-- `llm_client.py`: LLM stream manager with a stubbed token stream and rollback-friendly interface.
-- `ast_parser.py`: Semantic checkpoint detection using Python AST and compile-time validation.
-- `oracle_sandbox.py`: Isolated sandbox executor with restricted builtins, syntactic blacklist, timeout enforcement, and mini property-based checking.
-- `zero_scd_engine.py`: Orchestrator loop implementing speculative buffering, semantic checkpoints, rollback, and error injection.
-- `raw_generation_baseline.py`: Simple baseline generation script using the same LLM client interface.
+- `llm_client.py`: LLM client wrapper with Gemini API support and a fallback stubbed token stream.
+- `ast_parser.py`: Semantic checkpoint detector using `codeop` and Python AST validation.
+- `oracle_sandbox.py`: Restricted sandbox executor with syntax filtering, safe builtins, and predicate-based invariant checking.
+- `zero_scd_engine.py`: Main engine orchestrator for speculative decoding with retries, backoff, and rollback.
+- `raw_generation_baseline.py`: Plain generative baseline using the same LLM client interface.
+- `tests/`: Unit tests covering parser, sandbox, client, and synthesis flow.
+- `prompts/example.txt`: Example prompt file for demo usage.
 
-## Running
+## Running the demo
 
-Use `python zero_scd_engine.py` to run the synthesis engine.
-Use `python raw_generation_baseline.py` to run a baseline generation sample.
+Install dependencies:
 
-### Examples
-
-Run the spec-conditioned synthesis engine with a custom prompt:
-
-```bash
-python zero_scd_engine.py --prompt "# Complete the function implementation below"
+```powershell
+pip install -r requirements.txt
 ```
 
-Change retry/backoff behavior:
+Run the Zero-SCD engine:
 
-```bash
-python zero_scd_engine.py --prompt "# Complete the function implementation below" --max-retries 5 --backoff-base 0.1 --max-backoff 1.0
+```powershell
+python zero_scd_engine.py
 ```
 
-Run the baseline generator with a prompt file:
+Run the baseline generator:
 
-```bash
+```powershell
+python raw_generation_baseline.py
+```
+
+Use a prompt file for reproducible demo runs:
+
+```powershell
+python zero_scd_engine.py --prompt-file prompts/example.txt --verbose
 python raw_generation_baseline.py --prompt-file prompts/example.txt --temperature 0.3 --max-tokens 128
 ```
 
-Use `GEMINI_API_KEY` or `LLM_API_KEY` to configure the model API key.
+## CLI options
 
-## Notes
+`zero_scd_engine.py` supports:
 
-- This implementation is a local prototype and uses a stubbed LLM stream.
-- Replace `LLMClient._simulate_stream` with a real Gemini 2.0 Flash API integration for production use.
-- Configure the API key via `GEMINI_API_KEY` or `LLM_API_KEY`.
-- Optionally use `LLM_API_URL` to point to a custom model endpoint instead of the default Gemini URL.
-- The sandbox enforces a 20ms timeout and rejects unsafe syntax patterns before execution.
+- `--prompt` / `--prompt-file`
+- `--api-key`, `--model`, `--api-url`
+- `--max-retries`, `--backoff-base`, `--max-backoff`
+- `--sandbox-timeout`
+- `--verbose`
+
+`raw_generation_baseline.py` supports the same model configuration flags.
+
+## Model configuration
+
+The engine uses a real model when `GEMINI_API_KEY` or `LLM_API_KEY` is available.
+Otherwise it falls back to a local stubbed completion stream for demo and testing.
+
+If you want to target a custom endpoint, set `LLM_API_URL` or pass `--api-url`.
+
+## Example prompt
+
+`prompts/example.txt` contains a sample prompt to bootstrap the synthesis engine.
+
+## Testing
+
+Run the repository tests with:
+
+```powershell
+python -m pytest -q
+```
+
+## Notes for paper-ready presentation
+
+- This prototype demonstrates the Zero-SCD concept, not a production-ready service.
+- The current sandbox is intentionally minimal and designed for local prototype evaluation.
+- The included fallback stub stream makes the demo deterministic without external API access.
+- Use `--verbose` on `zero_scd_engine.py` to expose synthesis progress and checkpoint decisions.

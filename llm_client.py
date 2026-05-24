@@ -1,6 +1,7 @@
 import httpx
 import os
 import random
+import re
 import time
 from typing import Generator, Optional, Any, Dict
 
@@ -21,6 +22,11 @@ class LLMClient:
         self.model = model or os.getenv("LLM_MODEL", self.DEFAULT_MODEL)
         self.api_url = api_url or os.getenv("LLM_API_URL")
         self._client = httpx.Client(timeout=30.0)
+
+    @property
+    def uses_stub(self) -> bool:
+        """Return True when the LLM client is using the local stub instead of a real API."""
+        return self.api_key is None
 
     def stream_completion(
         self,
@@ -161,8 +167,8 @@ class LLMClient:
         raise ValueError("Unexpected model API response format")
 
     def _stream_from_text(self, text: str) -> Generator[str, None, None]:
-        for token in text.split():
-            yield token + " "
+        for token in re.findall(r"\s+|[^\s]+", text):
+            yield token
 
     def _simulate_stream(
         self,
@@ -174,13 +180,13 @@ class LLMClient:
         if temperature >= 0.7:
             completion = self._mutate_completion(completion)
 
-        for token in completion.split():
-            time.sleep(0.002)
-            yield token + " "
+        for token in self._stream_from_text(completion):
+            time.sleep(0.0001)
+            yield token
 
     def _default_stub_completion(self, prompt: str, max_tokens: int) -> str:
         if "def" in prompt or "class" in prompt:
-            return "return x * 2\n# END"
+            return "    return x * 2\n# END"
         return "def synthesized_function(x):\n    return x * 2\n# END"
 
     def _mutate_completion(self, completion: str) -> str:

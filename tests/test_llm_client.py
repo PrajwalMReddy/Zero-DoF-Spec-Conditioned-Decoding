@@ -24,3 +24,16 @@ def test_high_temperature_inserts_mutation_marker():
     text = "".join(tokens)
 
     assert "# mutated" in text
+
+
+def test_stub_stream_preserves_indentation_for_function_body():
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ.pop("LLM_API_KEY", None)
+
+    client = LLMClient()
+    prompt = "def synthesized_function(x):\n"
+    tokens = list(client.stream_completion(prompt=prompt, temperature=0.2))
+    text = "".join(tokens)
+
+    assert text.startswith("    return")
+    assert "# END" in text
