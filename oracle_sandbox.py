@@ -128,7 +128,11 @@ def _sandbox_worker(candidate_code: str, specifications: List[Specification], re
     result_queue.put((success, diagnostic))
 
 
-def evaluate_executable_oracle(candidate_code: str, specifications: List[Specification]) -> Tuple[bool, str]:
+def evaluate_executable_oracle(
+    candidate_code: str,
+    specifications: List[Specification],
+    timeout: float = 0.02,
+) -> Tuple[bool, str]:
     is_clean, diagnostic = _check_restricted_syntax(candidate_code)
     if not is_clean:
         return False, diagnostic
@@ -139,12 +143,12 @@ def evaluate_executable_oracle(candidate_code: str, specifications: List[Specifi
         args=(candidate_code, specifications, result_queue),
     )
     proc.start()
-    proc.join(0.02)
+    proc.join(timeout)
 
     if proc.is_alive():
         proc.terminate()
         proc.join()
-        return False, 'Halting Violation: execution exceeded 20ms timeout.'
+        return False, f'Halting Violation: execution exceeded {timeout * 1000:.0f}ms timeout.'
 
     if result_queue.empty():
         return False, 'Sandbox failed to return a result.'
