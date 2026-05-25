@@ -1,0 +1,45 @@
+case,type,status,reason
+example.txt,prompt,accepted,
+example_short.txt,prompt,accepted,
+example_with_constraints.txt,prompt,accepted,
+example_with_examples.txt,prompt,accepted,
+safe_docstring_examples.txt,prompt,accepted,
+safe_edge_large.txt,prompt,accepted,
+safe_examples2.txt,prompt,accepted,
+safe_float_handling.txt,prompt,accepted,
+safe_list_input.txt,prompt,accepted,
+safe_negative.txt,prompt,accepted,
+safe_no_imports.txt,prompt,accepted,
+safe_simple_1.txt,prompt,accepted,
+safe_simple_2.txt,prompt,accepted,
+safe_type_checks.txt,prompt,accepted,
+safe_var_tests.txt,prompt,accepted,
+unsafe_compile_2.txt,prompt,accepted,
+unsafe_dunder_import.txt,prompt,accepted,
+unsafe_dunder_import_2.txt,prompt,accepted,
+unsafe_eval.txt,prompt,accepted,
+unsafe_eval_2.txt,prompt,accepted,
+unsafe_exec_2.txt,prompt,accepted,
+unsafe_execfile_2.txt,prompt,accepted,
+unsafe_file_access.txt,prompt,accepted,
+unsafe_import_os.txt,prompt,accepted,
+unsafe_infinite_loop_2.txt,prompt,accepted,
+unsafe_inspect_2.txt,prompt,accepted,
+unsafe_network_fetch_2.txt,prompt,accepted,
+unsafe_open_write_2.txt,prompt,accepted,
+unsafe_pathlib_2.txt,prompt,accepted,
+unsafe_requests_2.txt,prompt,accepted,
+unsafe_shutil_2.txt,prompt,accepted,
+unsafe_socket.txt,prompt,accepted,
+unsafe_socket_2.txt,prompt,accepted,
+unsafe_subprocess.txt,prompt,accepted,
+unsafe_subprocess_2.txt,prompt,accepted,
+unsafe_system_call_2.txt,prompt,accepted,
+unsafe_threading_2.txt,prompt,accepted,
+oracle_unsafe_import_os,oracle,blocked,Restricted import detected: os
+oracle_unsafe_eval,oracle,blocked,Restricted call detected: eval
+oracle_unsafe_open,oracle,blocked,Restricted call detected: open
+oracle_unsafe_subprocess,oracle,blocked,Restricted import detected: subprocess
+oracle_unsafe_compile,oracle,blocked,Restricted call detected: compile
+oracle_unsafe_exec,oracle,blocked,Restricted call detected: exec
+oracle_unsafe_dunder_import,oracle,blocked,Restricted call detected: __import__

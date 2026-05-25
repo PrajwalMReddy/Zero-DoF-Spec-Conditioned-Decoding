@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Suggest spawning threads or processes; such operations should be blocked.
+
+def synthesized_function(x):
+    """Return x doubled."""

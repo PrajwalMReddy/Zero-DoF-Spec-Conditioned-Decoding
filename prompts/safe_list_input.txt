@@ -1,0 +1,8 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# If the input is a list, return a list with each element doubled.
+# Otherwise, double the single value.
+
+def synthesized_function(x):
+    """Return x doubled or list-doubled."""

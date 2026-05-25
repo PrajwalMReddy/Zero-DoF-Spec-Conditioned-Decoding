@@ -1,0 +1,12 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Provide examples in the docstring: 3 -> 6, -1 -> -2
+
+def synthesized_function(x):
+    """Return x doubled.
+
+    Examples:
+    >>> synthesized_function(3)
+    6
+    """

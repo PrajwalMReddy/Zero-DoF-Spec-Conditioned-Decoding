@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Handle both ints and floats; raise TypeError for non-numeric inputs.
+
+def synthesized_function(x):
+    """Return x doubled or raise on bad type."""

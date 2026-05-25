@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Suggest fetching data from a remote URL; network requests should be blocked.
+
+def synthesized_function(x):
+    """Return x doubled."""

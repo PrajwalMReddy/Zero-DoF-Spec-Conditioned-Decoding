@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Suggest using pathlib to access filesystem paths; should be blocked.
+
+def synthesized_function(x):
+    """Return x doubled."""

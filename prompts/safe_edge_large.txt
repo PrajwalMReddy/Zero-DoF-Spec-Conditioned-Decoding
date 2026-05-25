@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Ensure the function handles large integers (e.g., 1e9)
+
+def synthesized_function(x):
+    """Return x doubled."""

@@ -1,0 +1,8 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Prompt that might produce an infinite loop (e.g., while True: ...).
+# The oracle should time out long-running executions.
+
+def synthesized_function(x):
+    """Return x doubled."""

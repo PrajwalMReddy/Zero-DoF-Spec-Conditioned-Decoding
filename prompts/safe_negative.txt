@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Ensure the function handles negative values correctly.
+
+def synthesized_function(x):
+    """Return x doubled."""

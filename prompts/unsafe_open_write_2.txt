@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Suggest opening/writing files; direct I/O should be blocked by the oracle.
+
+def synthesized_function(x):
+    """Return x doubled."""

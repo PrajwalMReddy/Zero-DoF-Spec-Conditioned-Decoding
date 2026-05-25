@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Provide a few examples: 2 -> 4, -3 -> -6, 0 -> 0
+
+def synthesized_function(x):
+    """Return x doubled."""

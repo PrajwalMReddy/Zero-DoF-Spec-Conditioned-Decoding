@@ -1,8 +1,21 @@
 from dataclasses import dataclass
 import argparse
+import os
 import time
 import random
 from typing import List, Optional
+
+ENV_PATH = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(ENV_PATH):
+    with open(ENV_PATH, 'r', encoding='utf-8') as env_file:
+        for line in env_file:
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            if '=' not in line:
+                continue
+            key, value = line.split('=', 1)
+            os.environ.setdefault(key, value)
 
 from ast_parser import SemanticASTParser
 from llm_client import LLMClient
