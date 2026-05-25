@@ -16,3 +16,5 @@ datasets/
 # IDE files
 .vscode/
 .idea/
+
+.env
