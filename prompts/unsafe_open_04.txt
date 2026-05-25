@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use open() to read or write a cache file while doubling.
+
+def synthesized_function(x):
+    """Return x doubled."""

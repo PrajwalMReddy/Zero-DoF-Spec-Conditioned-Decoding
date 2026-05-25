@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Double x and clamp to [-1000, 1000] using arithmetic only.
+
+def synthesized_function(x):
+    """Return x doubled."""

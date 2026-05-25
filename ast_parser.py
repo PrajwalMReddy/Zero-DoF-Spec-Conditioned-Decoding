@@ -5,12 +5,25 @@ import codeop
 class SemanticASTParser:
     """Detect semantic checkpoints in a streaming buffer."""
 
+    STATEMENT_TERMINATORS = ('\n', ';')
+
     def __init__(self) -> None:
         self._compiler = codeop.Compile()
+
+    def has_statement_boundary(self, speculative_buffer: str) -> bool:
+        """True when the buffer ends a statement (newline or semicolon), per §3.3."""
+        if not speculative_buffer or not speculative_buffer.strip():
+            return False
+        trimmed = speculative_buffer.rstrip()
+        if trimmed.endswith(';'):
+            return True
+        return any(char in speculative_buffer for char in self.STATEMENT_TERMINATORS)
 
     def is_semantic_checkpoint(self, committed_history: str, speculative_buffer: str) -> bool:
         """Return True when the combined code completes a valid semantic block."""
         if not speculative_buffer or not speculative_buffer.strip():
+            return False
+        if not self.has_statement_boundary(speculative_buffer):
             return False
 
         candidate_code = committed_history

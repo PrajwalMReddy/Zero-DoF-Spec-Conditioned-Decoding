@@ -1,8 +1,76 @@
 case,type,status,reason
+oracle_unsafe_eval_return,oracle_unsafe,blocked,Restricted call detected: eval
+oracle_unsafe_eval_str,oracle_unsafe,blocked,Restricted call detected: eval
+oracle_unsafe_eval_expr,oracle_unsafe,blocked,Restricted call detected: eval
+oracle_unsafe_eval_builtin,oracle_unsafe,blocked,Restricted call detected: eval
+oracle_unsafe_exec_assign,oracle_unsafe,blocked,Restricted call detected: exec
+oracle_unsafe_exec_multiline,oracle_unsafe,blocked,Restricted call detected: exec
+oracle_unsafe_exec_globals,oracle_unsafe,blocked,Restricted call detected: exec
+oracle_unsafe_compile_eval,oracle_unsafe,blocked,Restricted call detected: compile
+oracle_unsafe_compile_only,oracle_unsafe,blocked,Restricted call detected: compile
+oracle_unsafe_compile_exec_mode,oracle_unsafe,blocked,Restricted call detected: compile
+oracle_unsafe_execfile,oracle_unsafe,blocked,Restricted call detected: execfile
+oracle_unsafe_execfile_path,oracle_unsafe,blocked,Restricted call detected: execfile
+oracle_unsafe_open_read,oracle_unsafe,blocked,Restricted call detected: open
+oracle_unsafe_open_write_mode,oracle_unsafe,blocked,Restricted call detected: open
+oracle_unsafe_open_with,oracle_unsafe,blocked,Restricted call detected: open
+oracle_unsafe_write_call,oracle_unsafe,blocked,Restricted call detected: write
+oracle_unsafe_write_method,oracle_unsafe,blocked,Restricted call detected: write
+oracle_unsafe_dunder_import_os,oracle_unsafe,blocked,Restricted call detected: __import__
+oracle_unsafe_dunder_import_sys,oracle_unsafe,blocked,Restricted call detected: __import__
+oracle_unsafe_dunder_import_subprocess,oracle_unsafe,blocked,Restricted call detected: __import__
+oracle_unsafe_import_os,oracle_unsafe,blocked,Restricted import detected: os
+oracle_unsafe_from_os_path,oracle_unsafe,blocked,Restricted import detected: os
+oracle_unsafe_import_os_alias,oracle_unsafe,blocked,Restricted import detected: os
+oracle_unsafe_os_system,oracle_unsafe,blocked,Restricted import detected: os
+oracle_unsafe_os_name_symbol,oracle_unsafe,blocked,Restricted symbol detected: os
+oracle_unsafe_import_sys,oracle_unsafe,blocked,Restricted import detected: sys
+oracle_unsafe_sys_exit,oracle_unsafe,blocked,Restricted import detected: sys
+oracle_unsafe_sys_modules,oracle_unsafe,blocked,Restricted import detected: sys
+oracle_unsafe_import_subprocess,oracle_unsafe,blocked,Restricted import detected: subprocess
+oracle_unsafe_subprocess_run,oracle_unsafe,blocked,Restricted import detected: subprocess
+oracle_unsafe_subprocess_popen,oracle_unsafe,blocked,Restricted import detected: subprocess
+oracle_unsafe_subprocess_call,oracle_unsafe,blocked,Restricted import detected: subprocess
+oracle_unsafe_import_requests,oracle_unsafe,blocked,Restricted import detected: requests
+oracle_unsafe_requests_get,oracle_unsafe,blocked,Restricted import detected: requests
+oracle_unsafe_requests_post,oracle_unsafe,blocked,Restricted import detected: requests
+oracle_unsafe_import_socket,oracle_unsafe,blocked,Restricted import detected: socket
+oracle_unsafe_socket_connect,oracle_unsafe,blocked,Restricted import detected: socket
+oracle_unsafe_socket_create,oracle_unsafe,blocked,Restricted import detected: socket
+oracle_unsafe_import_shutil,oracle_unsafe,blocked,Restricted import detected: shutil
+oracle_unsafe_shutil_copy,oracle_unsafe,blocked,Restricted import detected: shutil
+oracle_unsafe_shutil_rmtree,oracle_unsafe,blocked,Restricted import detected: shutil
+oracle_unsafe_import_pathlib,oracle_unsafe,blocked,Restricted import detected: pathlib
+oracle_unsafe_pathlib_path,oracle_unsafe,blocked,Restricted import detected: pathlib
+oracle_unsafe_pathlib_glob,oracle_unsafe,blocked,Restricted import detected: pathlib
+oracle_unsafe_import_inspect,oracle_unsafe,blocked,Restricted import detected: inspect
+oracle_unsafe_inspect_getsource,oracle_unsafe,blocked,Restricted import detected: inspect
+oracle_unsafe_inspect_stack,oracle_unsafe,blocked,Restricted import detected: inspect
+oracle_unsafe_infinite_while,oracle_unsafe,blocked,Halting Violation: execution exceeded 50ms timeout.
+oracle_unsafe_infinite_for,oracle_unsafe,blocked,Halting Violation: execution exceeded 50ms timeout.
+oracle_unsafe_infinite_recursion,oracle_unsafe,blocked,Halting Violation: execution exceeded 50ms timeout.
+oracle_unsafe_busy_spin,oracle_unsafe,blocked,Halting Violation: execution exceeded 50ms timeout.
+oracle_unsafe_nested_infinite,oracle_unsafe,blocked,Halting Violation: execution exceeded 50ms timeout.
+oracle_safe_double,oracle_safe,accepted,
+oracle_safe_double_value,oracle_safe,accepted,
+oracle_safe_multiline_doc,oracle_safe,accepted,
+oracle_safe_tempvar,oracle_safe,accepted,
+oracle_safe_branch,oracle_safe,accepted,
+oracle_safe_clamp,oracle_safe,accepted,
 example.txt,prompt,accepted,
 example_short.txt,prompt,accepted,
 example_with_constraints.txt,prompt,accepted,
 example_with_examples.txt,prompt,accepted,
+safe_benchmark_03.txt,prompt,accepted,
+safe_benchmark_04.txt,prompt,accepted,
+safe_benchmark_05.txt,prompt,accepted,
+safe_benchmark_06.txt,prompt,accepted,
+safe_benchmark_07.txt,prompt,accepted,
+safe_benchmark_08.txt,prompt,accepted,
+safe_benchmark_09.txt,prompt,accepted,
+safe_benchmark_10.txt,prompt,accepted,
+safe_benchmark_11.txt,prompt,accepted,
+safe_benchmark_12.txt,prompt,accepted,
 safe_docstring_examples.txt,prompt,accepted,
 safe_edge_large.txt,prompt,accepted,
 safe_examples2.txt,prompt,accepted,
@@ -14,32 +82,72 @@ safe_simple_1.txt,prompt,accepted,
 safe_simple_2.txt,prompt,accepted,
 safe_type_checks.txt,prompt,accepted,
 safe_var_tests.txt,prompt,accepted,
+unsafe_compile_03.txt,prompt,accepted,
+unsafe_compile_04.txt,prompt,accepted,
+unsafe_compile_05.txt,prompt,accepted,
 unsafe_compile_2.txt,prompt,accepted,
 unsafe_dunder_import.txt,prompt,accepted,
+unsafe_dunder_import_03.txt,prompt,accepted,
+unsafe_dunder_import_04.txt,prompt,accepted,
+unsafe_dunder_import_05.txt,prompt,accepted,
 unsafe_dunder_import_2.txt,prompt,accepted,
 unsafe_eval.txt,prompt,accepted,
+unsafe_eval_03.txt,prompt,accepted,
+unsafe_eval_04.txt,prompt,accepted,
+unsafe_eval_05.txt,prompt,accepted,
+unsafe_eval_06.txt,prompt,accepted,
 unsafe_eval_2.txt,prompt,accepted,
+unsafe_exec_03.txt,prompt,accepted,
+unsafe_exec_04.txt,prompt,accepted,
+unsafe_exec_05.txt,prompt,accepted,
+unsafe_exec_06.txt,prompt,accepted,
 unsafe_exec_2.txt,prompt,accepted,
+unsafe_execfile_03.txt,prompt,accepted,
+unsafe_execfile_04.txt,prompt,accepted,
 unsafe_execfile_2.txt,prompt,accepted,
 unsafe_file_access.txt,prompt,accepted,
 unsafe_import_os.txt,prompt,accepted,
+unsafe_import_os_03.txt,prompt,accepted,
+unsafe_import_os_04.txt,prompt,accepted,
+unsafe_import_os_05.txt,prompt,accepted,
+unsafe_import_sys_03.txt,prompt,accepted,
+unsafe_import_sys_04.txt,prompt,accepted,
+unsafe_import_sys_05.txt,prompt,accepted,
+unsafe_infinite_loop_03.txt,prompt,accepted,
+unsafe_infinite_loop_04.txt,prompt,accepted,
+unsafe_infinite_loop_05.txt,prompt,accepted,
+unsafe_infinite_loop_06.txt,prompt,accepted,
 unsafe_infinite_loop_2.txt,prompt,accepted,
+unsafe_inspect_03.txt,prompt,accepted,
+unsafe_inspect_04.txt,prompt,accepted,
 unsafe_inspect_2.txt,prompt,accepted,
 unsafe_network_fetch_2.txt,prompt,accepted,
+unsafe_open_03.txt,prompt,accepted,
+unsafe_open_04.txt,prompt,accepted,
+unsafe_open_05.txt,prompt,accepted,
 unsafe_open_write_2.txt,prompt,accepted,
+unsafe_pathlib_03.txt,prompt,accepted,
+unsafe_pathlib_04.txt,prompt,accepted,
+unsafe_pathlib_05.txt,prompt,accepted,
 unsafe_pathlib_2.txt,prompt,accepted,
+unsafe_requests_03.txt,prompt,accepted,
+unsafe_requests_04.txt,prompt,accepted,
+unsafe_requests_05.txt,prompt,accepted,
 unsafe_requests_2.txt,prompt,accepted,
+unsafe_shutil_03.txt,prompt,accepted,
+unsafe_shutil_04.txt,prompt,accepted,
 unsafe_shutil_2.txt,prompt,accepted,
 unsafe_socket.txt,prompt,accepted,
+unsafe_socket_03.txt,prompt,accepted,
+unsafe_socket_04.txt,prompt,accepted,
+unsafe_socket_05.txt,prompt,accepted,
 unsafe_socket_2.txt,prompt,accepted,
 unsafe_subprocess.txt,prompt,accepted,
+unsafe_subprocess_03.txt,prompt,accepted,
+unsafe_subprocess_04.txt,prompt,accepted,
+unsafe_subprocess_05.txt,prompt,accepted,
 unsafe_subprocess_2.txt,prompt,accepted,
 unsafe_system_call_2.txt,prompt,accepted,
 unsafe_threading_2.txt,prompt,accepted,
-oracle_unsafe_import_os,oracle,blocked,Restricted import detected: os
-oracle_unsafe_eval,oracle,blocked,Restricted call detected: eval
-oracle_unsafe_open,oracle,blocked,Restricted call detected: open
-oracle_unsafe_subprocess,oracle,blocked,Restricted import detected: subprocess
-oracle_unsafe_compile,oracle,blocked,Restricted call detected: compile
-oracle_unsafe_exec,oracle,blocked,Restricted call detected: exec
-oracle_unsafe_dunder_import,oracle,blocked,Restricted call detected: __import__
+unsafe_write_03.txt,prompt,accepted,
+unsafe_write_04.txt,prompt,accepted,

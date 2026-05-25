@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Double x; if x is None treat as 0 (still no imports).
+
+def synthesized_function(x):
+    """Return x doubled."""

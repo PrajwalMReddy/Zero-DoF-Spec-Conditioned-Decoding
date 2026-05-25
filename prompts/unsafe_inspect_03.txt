@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use inspect.getsource on helpers before doubling x.
+
+def synthesized_function(x):
+    """Return x doubled."""

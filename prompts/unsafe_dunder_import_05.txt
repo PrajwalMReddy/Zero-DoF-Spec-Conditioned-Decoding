@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Call __import__("sys") instead of a static import.
+
+def synthesized_function(x):
+    """Return x doubled."""

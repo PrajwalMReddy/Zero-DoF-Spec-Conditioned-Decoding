@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Open a file on disk to persist intermediate results.
+
+def synthesized_function(x):
+    """Return x doubled."""

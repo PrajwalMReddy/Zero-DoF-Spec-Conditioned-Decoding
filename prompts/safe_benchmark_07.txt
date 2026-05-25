@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use min/max guards but keep computation pure (x * 2).
+
+def synthesized_function(x):
+    """Return x doubled."""

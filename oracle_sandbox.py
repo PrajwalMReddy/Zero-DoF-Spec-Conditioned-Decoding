@@ -1,4 +1,3 @@
-import ast
 import builtins
 import multiprocessing
 import random
@@ -6,23 +5,12 @@ import traceback
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
-BLOCKED_KEYWORDS = {
-    '__import__',
-    'eval',
-    'exec',
-    'open',
-    'write',
-    'compile',
-    'execfile',
-    'os',
-    'sys',
-    'subprocess',
-    'requests',
-    'socket',
-    'shutil',
-    'pathlib',
-    'inspect',
-}
+from oracle_pbt import run_pbt_oracle
+from oracle_smt import run_smt_oracle
+from oracle_static import BLOCKED_KEYWORDS, check_restricted_syntax
+
+# Re-export for backward compatibility
+_check_restricted_syntax = check_restricted_syntax
 
 SAFE_BUILTINS = {
     name: getattr(builtins, name)
@@ -58,14 +46,17 @@ class Specification:
     predicate: Callable[[Dict[str, Any], Dict[str, Any]], bool]
     sample_inputs: Optional[List[Dict[str, Any]]] = field(default_factory=list)
     generator: Optional[Callable[[], Dict[str, Any]]] = None
+    pbt_case_count: int = 50
+    expected_multiplier: int = 2
 
-    def generate_cases(self, count: int = 50) -> Iterable[Dict[str, Any]]:
+    def generate_cases(self, count: Optional[int] = None) -> Iterable[Dict[str, Any]]:
+        case_count = count if count is not None else self.pbt_case_count
         if self.sample_inputs:
             for sample in self.sample_inputs:
                 yield sample
 
         if self.generator:
-            for _ in range(count):
+            for _ in range(case_count):
                 yield self.generator()
             return
 
@@ -73,60 +64,45 @@ class Specification:
         for value in boundaries:
             yield {'value': value}
 
-        for _ in range(count - len(boundaries)):
+        remaining = max(0, case_count - len(boundaries))
+        for _ in range(remaining):
             yield {'value': random.randint(-100, 100)}
 
 
-def _check_restricted_syntax(candidate_code: str) -> Tuple[bool, str]:
-    try:
-        tree = ast.parse(candidate_code, mode='exec')
-    except SyntaxError as exc:
-        return False, f'Syntax error during static analysis: {exc}'
+def _evaluate_candidate(
+    candidate_code: str,
+    specifications: List[Specification],
+    *,
+    enable_smt: bool = True,
+    enable_pbt: bool = True,
+) -> Tuple[bool, str]:
+    if enable_smt and specifications:
+        expected = specifications[0].expected_multiplier
+        ok, diagnostic = run_smt_oracle(candidate_code, expected_multiplier=expected)
+        if not ok:
+            return False, diagnostic
 
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            for alias in node.names:
-                name = alias.name.split('.')[0]
-                if name in BLOCKED_KEYWORDS:
-                    return False, f'Restricted import detected: {name}'
-
-        if isinstance(node, ast.ImportFrom):
-            module_name = (node.module or '').split('.')[0]
-            if module_name in BLOCKED_KEYWORDS:
-                return False, f'Restricted import detected: {module_name}'
-
-        if isinstance(node, ast.Name) and node.id in BLOCKED_KEYWORDS:
-            return False, f'Restricted symbol detected: {node.id}'
-        if isinstance(node, ast.Attribute) and node.attr in BLOCKED_KEYWORDS:
-            return False, f'Restricted attribute detected: {node.attr}'
-        if isinstance(node, ast.Call):
-            func = node.func
-            if isinstance(func, ast.Name) and func.id in BLOCKED_KEYWORDS:
-                return False, f'Restricted call detected: {func.id}'
-            if isinstance(func, ast.Attribute) and func.attr in BLOCKED_KEYWORDS:
-                return False, f'Restricted call detected: {func.attr}'
-
-    return True, ''
-
-
-def _evaluate_candidate(candidate_code: str, specifications: List[Specification]) -> Tuple[bool, str]:
     namespace: Dict[str, Any] = {}
     exec(candidate_code, SAFE_GLOBALS, namespace)
 
-    for spec in specifications:
-        for input_case in spec.generate_cases():
-            try:
-                if not spec.predicate(namespace, input_case):
-                    return False, f'Invariant failed for sample {input_case}: {spec.description}'
-            except Exception as exc:
-                return False, f'Runtime failure for sample {input_case}: {exc}'
+    if enable_pbt:
+        return run_pbt_oracle(namespace, specifications, max_cases=specifications[0].pbt_case_count if specifications else 50)
 
     return True, 'All invariants passed.'
 
 
-def _sandbox_worker(candidate_code: str, specifications: List[Specification], result_queue: multiprocessing.Queue) -> None:
+def _sandbox_worker(
+    candidate_code: str,
+    specifications: List[Specification],
+    result_queue: multiprocessing.Queue,
+    enable_smt: bool,
+) -> None:
     try:
-        success, diagnostic = _evaluate_candidate(candidate_code, specifications)
+        success, diagnostic = _evaluate_candidate(
+            candidate_code,
+            specifications,
+            enable_smt=enable_smt,
+        )
     except Exception:
         result_queue.put((False, 'Sandbox exception: ' + traceback.format_exc()))
         return
@@ -138,15 +114,25 @@ def evaluate_executable_oracle(
     candidate_code: str,
     specifications: List[Specification],
     timeout: float = 0.02,
+    *,
+    enable_smt: bool = True,
+    use_multiprocessing: bool = True,
 ) -> Tuple[bool, str]:
-    is_clean, diagnostic = _check_restricted_syntax(candidate_code)
+    """Run static, SMT (structural/optional Z3), then sandboxed PBT oracles."""
+    is_clean, diagnostic = check_restricted_syntax(candidate_code)
     if not is_clean:
         return False, diagnostic
+
+    if not use_multiprocessing:
+        try:
+            return _evaluate_candidate(candidate_code, specifications, enable_smt=enable_smt)
+        except Exception:
+            return False, 'Sandbox exception: ' + traceback.format_exc()
 
     result_queue: multiprocessing.Queue = multiprocessing.Queue(1)
     proc = multiprocessing.Process(
         target=_sandbox_worker,
-        args=(candidate_code, specifications, result_queue),
+        args=(candidate_code, specifications, result_queue, enable_smt),
     )
     proc.start()
     proc.join(timeout)

@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Import shutil and shutil.rmtree on a temp directory.
+
+def synthesized_function(x):
+    """Return x doubled."""

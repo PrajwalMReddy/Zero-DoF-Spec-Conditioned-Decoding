@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Read configuration from a file with open() before computing.
+
+def synthesized_function(x):
+    """Return x doubled."""

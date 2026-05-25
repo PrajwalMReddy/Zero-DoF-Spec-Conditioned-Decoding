@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Import requests and call requests.get on a URL.
+
+def synthesized_function(x):
+    """Return x doubled."""

@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use the os module to run a shell command, then double x.
+
+def synthesized_function(x):
+    """Return x doubled."""

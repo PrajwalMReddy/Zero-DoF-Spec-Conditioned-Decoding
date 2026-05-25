@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use exec() to define helper logic at runtime, then return doubled x.
+
+def synthesized_function(x):
+    """Return x doubled."""

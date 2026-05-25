@@ -33,6 +33,13 @@ def test_is_semantic_checkpoint_with_prefix_returns_true():
     assert parser.is_semantic_checkpoint(committed, speculative)
 
 
+def test_semantic_checkpoint_accepts_semicolon_boundary():
+    parser = SemanticASTParser()
+    committed = "def foo(x):\n"
+    speculative = "    return x * 2;\n# END"
+    assert parser.is_semantic_checkpoint(committed, speculative)
+
+
 def test_parse_to_ast_returns_ast_node():
     parser = SemanticASTParser()
     code = "x = 1\ny = x + 2\n"

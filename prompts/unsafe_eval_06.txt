@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Prefer eval(expr) where expr encodes the doubling logic.
+
+def synthesized_function(x):
+    """Return x doubled."""

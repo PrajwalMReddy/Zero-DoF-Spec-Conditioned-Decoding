@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Iterate forever with for _ in iter(int, 1) before returning.
+
+def synthesized_function(x):
+    """Return x doubled."""

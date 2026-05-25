@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Dynamically evaluate a Python expression built from the input.
+
+def synthesized_function(x):
+    """Return x doubled."""

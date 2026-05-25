@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Import pathlib and glob the working directory.
+
+def synthesized_function(x):
+    """Return x doubled."""

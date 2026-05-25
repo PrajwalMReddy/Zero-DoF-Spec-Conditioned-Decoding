@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use __import__ to fetch subprocess at runtime.
+
+def synthesized_function(x):
+    """Return x doubled."""

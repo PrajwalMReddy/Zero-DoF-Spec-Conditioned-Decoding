@@ -1,2 +1,4 @@
 httpx
 pytest
+# Optional: enables Z3 algebraic counterexamples in oracle_smt.py
+# z3-solver>=4.12.0

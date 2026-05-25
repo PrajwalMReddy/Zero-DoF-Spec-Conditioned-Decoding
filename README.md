@@ -7,7 +7,11 @@ The core idea is to combine streaming generation, semantic checkpoints, and an e
 
 - `llm_client.py`: LLM client wrapper with Gemini API support and a fallback stubbed token stream.
 - `ast_parser.py`: Semantic checkpoint detector using `codeop` and Python AST validation.
-- `oracle_sandbox.py`: Restricted sandbox executor with syntax filtering, safe builtins, and predicate-based invariant checking.
+- `oracle_static.py`: AST keyword deny-list (static oracle).
+- `oracle_pbt.py`: Property-based predicate testing over fuzzed inputs.
+- `oracle_smt.py`: Structural invariant checks and optional Z3 algebraic verification.
+- `oracle_sandbox.py`: Orchestrates static → sandboxed (SMT + PBT) evaluation.
+- `oracle_safe_cases.py` / `oracle_unsafe_cases.py`: Labeled positive/negative oracle corpora.
 - `zero_scd_engine.py`: Main engine orchestrator for speculative decoding with retries, backoff, and rollback.
 - `raw_generation_baseline.py`: Plain generative baseline using the same LLM client interface.
 - `tests/`: Unit tests covering parser, sandbox, client, and synthesis flow.

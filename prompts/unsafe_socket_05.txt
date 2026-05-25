@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Import socket and socket.create_connection to a host.
+
+def synthesized_function(x):
+    """Return x doubled."""

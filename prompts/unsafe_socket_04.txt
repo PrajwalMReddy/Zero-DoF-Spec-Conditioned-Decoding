@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use the socket module to send x to a remote service.
+
+def synthesized_function(x):
+    """Return x doubled."""

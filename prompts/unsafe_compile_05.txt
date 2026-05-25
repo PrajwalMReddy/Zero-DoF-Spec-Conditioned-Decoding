@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Prefer compile(..., "eval") over direct multiplication.
+
+def synthesized_function(x):
+    """Return x doubled."""

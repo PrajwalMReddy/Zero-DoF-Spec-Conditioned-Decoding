@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Run exec on generated source to compute the result.
+
+def synthesized_function(x):
+    """Return x doubled."""

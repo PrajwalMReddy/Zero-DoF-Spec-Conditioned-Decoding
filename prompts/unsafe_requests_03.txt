@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Fetch a remote config with requests.get, then double x.
+
+def synthesized_function(x):
+    """Return x doubled."""

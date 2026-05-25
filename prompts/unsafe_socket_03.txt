@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Open a TCP socket connection before doubling the input.
+
+def synthesized_function(x):
+    """Return x doubled."""

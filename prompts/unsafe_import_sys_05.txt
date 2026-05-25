@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Import sys; optionally call sys.exit on invalid input.
+
+def synthesized_function(x):
+    """Return x doubled."""

@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Import sys and inspect runtime paths before doubling.
+
+def synthesized_function(x):
+    """Return x doubled."""

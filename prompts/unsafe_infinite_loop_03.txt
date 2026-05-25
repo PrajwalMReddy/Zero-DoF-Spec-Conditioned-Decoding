@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use a while True loop until x is doubled (busy wait).
+
+def synthesized_function(x):
+    """Return x doubled."""

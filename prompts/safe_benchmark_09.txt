@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Return 2*x; avoid eval, exec, imports, and filesystem access.
+
+def synthesized_function(x):
+    """Return x doubled."""

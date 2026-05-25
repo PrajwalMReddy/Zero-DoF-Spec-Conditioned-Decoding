@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Spawn a child process via subprocess.Popen before returning.
+
+def synthesized_function(x):
+    """Return x doubled."""

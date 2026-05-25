@@ -19,7 +19,16 @@ if os.path.exists(ENV_PATH):
 
 from ast_parser import SemanticASTParser
 from llm_client import LLMClient
+from oracle_diagnostics import format_checkpoint_diagnostic
 from oracle_sandbox import Specification, evaluate_executable_oracle
+
+# Paper §3.1: T_retry = T_base * gamma^retry_count (gamma >= 1)
+BASE_TEMPERATURE = 0.2
+RETRY_GAMMA = 3.5
+
+
+def retry_sampling_temperature(retry_count: int) -> float:
+    return min(1.0, BASE_TEMPERATURE * (RETRY_GAMMA ** retry_count))
 
 
 @dataclass
@@ -72,9 +81,12 @@ def run_zero_scd_synthesis(
 
     while not generation_is_complete(session, max_retries=max_retries):
         try:
-            temperature = 0.2 if session.current_retry_count == 0 else 0.7
+            temperature = retry_sampling_temperature(session.current_retry_count)
             if verbose:
-                print(f"[Zero-SCD] attempt={session.current_retry_count + 1} temperature={temperature}")
+                print(
+                    f"[Zero-SCD] attempt={session.current_retry_count + 1} "
+                    f"temperature={temperature:.3f} (gamma={RETRY_GAMMA})"
+                )
             token_stream = client.stream_completion(
                 prompt=session.committed_history,
                 temperature=temperature,
@@ -119,7 +131,8 @@ def run_zero_scd_synthesis(
                     else:
                         session.speculative_buffer = ''
                         session.current_retry_count += 1
-                        session.committed_history += f"\n# Error: Specification failed for: {diagnostic}. Rectify this error."
+                        inline = format_checkpoint_diagnostic(diagnostic)
+                        session.committed_history += f"\n{inline}\n# Rectify this error and continue."
                         if verbose:
                             print(f"[Zero-SCD] checkpoint rejected: {diagnostic}")
 

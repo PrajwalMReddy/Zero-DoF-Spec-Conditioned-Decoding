@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Implement doubling with a simple return x * 2.
+
+def synthesized_function(x):
+    """Return x doubled."""

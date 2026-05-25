@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Load behavior from an external script using execfile.
+
+def synthesized_function(x):
+    """Return x doubled."""

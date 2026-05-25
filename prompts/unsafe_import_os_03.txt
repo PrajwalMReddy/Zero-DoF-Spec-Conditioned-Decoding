@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Import os and use it to interact with the environment.
+
+def synthesized_function(x):
+    """Return x doubled."""

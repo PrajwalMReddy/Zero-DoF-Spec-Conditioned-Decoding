@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Call eval on a formula string instead of arithmetic.
+
+def synthesized_function(x):
+    """Return x doubled."""

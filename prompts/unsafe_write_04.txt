@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use .write() to append audit output while doubling x.
+
+def synthesized_function(x):
+    """Return x doubled."""

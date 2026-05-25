@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Compute doubled value with // and * only, no network or disk.
+
+def synthesized_function(x):
+    """Return x doubled."""

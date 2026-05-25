@@ -1,0 +1,7 @@
+# Complete the function implementation below
+# End the generated code with '# END'
+
+# Use sys module utilities while computing 2*x.
+
+def synthesized_function(x):
+    """Return x doubled."""
